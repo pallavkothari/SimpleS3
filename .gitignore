@@ -45,5 +45,5 @@ fabric.properties
 
 .gitignore
 .idea/
-S3Downloader.iml
+*.iml
 target/
