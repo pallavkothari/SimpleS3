@@ -31,12 +31,14 @@ public class S3Uploader {
 
     private void upload(String bucketName, String file) throws InterruptedException {
         TransferManager transferManager = TransferManagerBuilder.defaultTransferManager();
-        Upload upload = transferManager.upload(bucketName, file, new File(file));
+        File file1 = new File(file);
+        Upload upload = transferManager.upload(bucketName, file1.getName(), file1);
         while (!upload.isDone()) {
             Thread.sleep(1000);
             System.out.println(String.format("%s uploading.. (%,.2f%%)", file, upload.getProgress().getPercentTransferred()));
         }
         upload.waitForCompletion();
         transferManager.shutdownNow();
+        System.out.println(String.format("Your file will be available at s3://%s/%s", bucketName, file1.getName()));
     }
 }
